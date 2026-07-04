@@ -7,38 +7,37 @@ parameters:
     type: string
 
 jobs:
+  # Full E2E test matrix via npm — validates every API's behavior exhaustively.
   - template: web-e2e-tests-job.yml@self
     parameters:
-      AppHostingSdk: AppHostingSdk
+      AppHostingSdk: ${{ parameters.AppHostingSdk }}
       hostingEnvironmentType: 'standardWeb'
       teamsJsReferenceType: 'npm'
-      testPrefixPatternGroups: [
-          # 'app(?=\.)',// disable because of timeout issue
+      testPrefixPatternGroups:
+        [
+          'app(?=\.)',
           '{appE,appI,appS,auth}',
           '{[B],[b]}',
           '{[C-D],[c-d]}',
           '{[E],[e]}',
           '{[F-M],[f-m]}',
           '{[N-R],[n-r]}',
-          # '{[S],[s]}',// disable because of timeout issue
+          '{[S],[s]}',
           '{[T-Z],[t-z]}',
         ]
       versionBranch: ${{parameters.versionBranch}}
 
+  # Script-tag smoke test — validates the UMD bundle loads correctly via <script> tag.
+  # Only runs the 'app' test prefix (app.initialize, app.getContext, app.lifecycle, etc.)
+  # since the npm tests above already cover every API's behavior. The script-tag path
+  # only differs in *how* the SDK is loaded; once loaded, all code paths are identical.
   - template: web-e2e-tests-job.yml@self
     parameters:
-      AppHostingSdk: AppHostingSdk
+      AppHostingSdk: ${{ parameters.AppHostingSdk }}
       hostingEnvironmentType: 'standardWeb'
       teamsJsReferenceType: 'scriptTag'
-      testPrefixPatternGroups: [
-          # 'app(?=\.)',// disable because of timeout issue
-          '{appE,appI,appS,auth}',
-          '{[B],[b]}',
-          '{[C-D],[c-d]}',
-          '{[E],[e]}',
-          '{[F-M],[f-m]}',
-          '{[N-R],[n-r]}',
-          # '{[S],[s]}',// disable because of timeout issue
-          '{[T-Z],[t-z]}',
+      testPrefixPatternGroups:
+        [
+          'app(?=\.)',
         ]
       versionBranch: ${{parameters.versionBranch}}

@@ -1,8 +1,81 @@
 # Change Log - @microsoft/teams-js
 
-This log was last generated on Thu, 08 Jan 2026 23:04:26 GMT and should not be manually modified.
+<!-- This log was last generated on Wed, 17 Jun 2026 17:10:04 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 2.53.1
+
+Wed, 17 Jun 2026 17:10:04 GMT
+
+### Patches
+
+- Fix async origin validation in processAuthBridgeMessage to properly await the result of verifyIncomingMessageOrigin before processing messages
+
+## 2.53.0
+
+Wed, 06 May 2026 19:04:08 GMT
+
+### Minor changes
+
+- Promoted the `shortcutRelay` capability from beta to public.
+
+### Patches
+
+- Security: Upgraded underscore dependency from 1.12.1 to 1.13.8 to resolve component governance alert and address known security vulnerabilities.
+- Added function key support (F1-F24) to `shortcutRelay` capability.
+
+## 2.52.0
+
+Wed, 08 Apr 2026 17:07:30 GMT
+
+### Minor changes
+
+- Added `hostFeatures` key in app context, so the hosts can declare support for features to the app.
+- Extended sharing.shareWebContent to support File content type via the new IFileContent interface, enabling sharing of file URLs alongside existing URL content.
+
+## 2.51.0
+
+Fri, 27 Mar 2026 20:29:02 GMT
+
+### Minor changes
+
+- Added teamsJs logging for cases where an API fails because it is called in an unsupported frame context.
+- Added `plugins` capability that will help directly interact with the host bypassing API registration in hubsdk. The capability is still awaiting support in one or most host applications. To track availability of this capability across different hosts see https://aka.ms/capmatrix
+- Added `appState` parameter to `HostMemoryMetrics` to indicate current state of the app's lifecycle. Deprecated `isCached` and `isPrecached` fields to use the new structure.
+- Added `shareUrl` and `replyChainId` in `openFilePreview` SDK schema.
+- Added `hostFeatures` key in app context, so the hosts can declare support for features to the app.
+
+## 2.50.0
+
+Thu, 12 Mar 2026 20:51:32 GMT
+
+### Minor changes
+
+- Updated ExternalApp\* capabilities to allow calls in sidePanel frame context.
+
+## 2.49.0
+
+Thu, 26 Feb 2026 21:58:31 GMT
+
+### Minor changes
+
+- Added new params for openFilePreview SDK that will help reduce file open latency in Teams. The capability is still awaiting support in one or most host applications. To track availability of this capability across different hosts see https://aka.ms/capmatrix
+- Added support for non-https URLs for opt-in app valid origins in `app.initialize()`.
+- Added support for nested wildcard subdomains. The valid origins are still restricted to the usage of only one wildcard in the valid origin.
+
+### Patches
+
+- Updated stageView.StageViewParams interface to make threadId optional.
+
+## 2.48.1
+
+Wed, 04 Feb 2026 17:24:38 GMT
+
+### Patches
+
+- Added MAC domains to valid domains for CDN
+- Mark registerOnContextChangeHandler as internal API
 
 ## 2.48.0
 
@@ -16,8 +89,7 @@ Thu, 08 Jan 2026 23:04:26 GMT
 - Added valid domain for UnifiedStore SDX.
 - Added host ancestors to app context.
 - Added `widgetHosting` capability that will enable hosting of widgets within M365 hubs. The capability is still awaiting support in one or most host applications. To track availability of this capability across different hosts see https://aka.ms/capmatrix
-- Added timezone property to LocaleInfo interface that will allow applications to access the user's timezone information. 
-- Bump eslint-plugin-recommend-no-namespaces to v0.1.0
+- Added timezone property to LocaleInfo interface that will allow applications to access the user's timezone information.
 
 ### Patches
 
@@ -65,7 +137,7 @@ Wed, 10 Sep 2025 22:10:41 GMT
 
 ### Minor changes
 
-- Added `{authenticateWithConnector}  and { getUserAuthenticationStateForConnector}` to  `externalAppAuthentication` capability that will authenticate the user and get user authentication status for copilot connectors. The capability is still awaiting support in one or most host applications. To track availability of this capability across different hosts see https://aka.ms/capmatrix
+- Added `{authenticateWithConnector}  and { getUserAuthenticationStateForConnector}` to `externalAppAuthentication` capability that will authenticate the user and get user authentication status for copilot connectors. The capability is still awaiting support in one or most host applications. To track availability of this capability across different hosts see https://aka.ms/capmatrix
 - Bump eslint-plugin-recommend-no-namespaces to v0.1.0
 
 ### Patches
@@ -859,7 +931,6 @@ The change log comments for v2.0.0 are a consolidated summary of the comments fo
 
 - Promote 2.0.0 beta changes to stable. TeamsJS can be used to write applications with support in multiple Microsoft 365 hosts, including Teams, Outlook, and Office.
 - The Teams JavaScript client SDK repo has been converted to a monorepo
-
   - Utilized [Yarn Workspaces](https://classic.yarnpkg.com/en/docs/workspaces/) to turn our repo into a monorepo.
   - The files specific to the Teams client SDK have been moved to an inner directory with the name `teams-js`
   - A new TeamsJS Test App for validating the Teams client SDK has been added in the <root>/apps/teams-test-app location.
@@ -873,7 +944,6 @@ The change log comments for v2.0.0 are a consolidated summary of the comments fo
 - The `FrameContext` interface has been renamed `FrameInfo`.
 
 - Capabilities organization introduced
-
   - Each capability has an `isSupported` function that is used to determine if a capability is supported in the host in which the application is running. All APIs call this function and will throw an `SdkError` with `ErrorCode.NOT_SUPPORTED_ON_PLATFORM` if it returns false.
   - Added App capability
     - The following APIs have been moved from `publicAPIs` to new `app` namespace:
@@ -890,7 +960,6 @@ The change log comments for v2.0.0 are a consolidated summary of the comments fo
       - `isInitialized`
       - `getFrameContext`
   - Added a Pages capability and reorganized several APIs under it:
-
     - The following APIs have been moved to the new `pages` namespace:
       - `registerFullScreenHandler` moved from `publicAPIs`
       - `initializeWithFrameContext` moved from `publicAPIs`
@@ -924,7 +993,6 @@ The change log comments for v2.0.0 are a consolidated summary of the comments fo
       - `navigateToTab` moved from `navigation` namespace
 
   - Tasks APIs renamed and reorganized under new Dialog capability:
-
     - Added `dialog` capability, which has support for HTML-based dialogs, and a `dialog.bot` sub-capability has been added for bot-based dialogs. At this time, `dialog` does not support adaptive card-based dialogs.
       - The following APIs have been renamed:
         - `startTask` has been renamed `dialog.open`. It takes
@@ -939,7 +1007,6 @@ The change log comments for v2.0.0 are a consolidated summary of the comments fo
     - Added `dialog.update` sub-capability and renamed `updateTask` to `dialog.update.resize`, which now takes a `DialogSize` parameter.
 
   - Added TeamsCore capability
-
     - The following APIs have been moved from `publicAPIs` to new `teamsCore` namespace:
       - `enablePrintCapability`
       - `print`
@@ -961,7 +1028,6 @@ The change log comments for v2.0.0 are a consolidated summary of the comments fo
   - Added Chat capability to new `chat` namespace to represent public chat functionality
     - Added `openChat` and `openGroupChat` to open Teams chats with one or more users
   - Converted existing `conversations` namespace into the Conversations capability to represent private chat functionality
-
     - `getChatMembers` has been moved from `privateAPIs` to `conversations` namespace
 
   - Added `fullTrust` and `fullTrust.joinedTeams` sub-capabilities to existing `teams` namespace
@@ -986,7 +1052,6 @@ The change log comments for v2.0.0 are a consolidated summary of the comments fo
     - Added `applyRuntimeConfig`
 
 - Promises introduced
-
   - The following APIs that took in a callback function as a parameter now instead return a `Promise`.
     - app APIs:
       - `app.initialize`
@@ -1254,7 +1319,6 @@ Tue, 01 Mar 2022 19:50:49 GMT
 ### Major changes
 
 - The Teams JavaScript client SDK repo is now a monorepo
-
   - We utilized [Yarn Workspaces](https://classic.yarnpkg.com/en/docs/workspaces/) to turn our repo into a monorepo. <br> The files specific to the Teams client SDK have been moved to an inner directory with the name `teams-js`
   - A new TeamsJS Test App for validating the Teams client SDK has been added in the <root>/apps/teams-test-app location.
 
@@ -1274,7 +1338,6 @@ Tue, 01 Mar 2022 19:50:49 GMT
   `meeting.requestStartLiveStreaming` and `meeting.requestStopLiveStreaming` no longer take in the parameter liveStreamState.
 
 - Context interface changes <br>
-
   - The Context interface has been updated to group similar properties for better scalability in a multi-host environment.
   - Context's `user.tenant.sku` has been renamed to `user.tenant.teamsSku` to reflect that it is used by Teams for a different purpose than from the Graph API's user.tenant.sku's.
 
@@ -1311,7 +1374,6 @@ Tue, 01 Mar 2022 19:50:49 GMT
   ```
 
 - Capabilities organization introduced
-
   - Added App capability
     - The following APIs have been moved from `publicAPIs` to new `app` namespace:
       - `initialize`
@@ -1330,7 +1392,6 @@ Tue, 01 Mar 2022 19:50:49 GMT
       - `shareDeepLink`
       - `executeDeepLink`
   - Several APIs reorganized under new Pages capability:
-
     - The following APIs have been moved to the new `pages` namespace:
       - `registerFullScreenHandler`
       - `initializeWithFrameContext`
@@ -1357,7 +1418,6 @@ Tue, 01 Mar 2022 19:50:49 GMT
       - `navigateToTab`
 
   - Added Dialog capability, renamed `tasks` namespace to `dialog`, and renamed APIs
-
     - The following APIs have been renamed:
       - `startTask` has been renamed `dialog.open`
       - `submitTasks` has been renamed `dialog.submit`
@@ -1366,7 +1426,6 @@ Tue, 01 Mar 2022 19:50:49 GMT
       - `TaskModuleDimension` enum has been renamed `DialogDimension`
 
   - Added TeamsCore capability
-
     - The following APIs have been moved from `publicAPIs` to new `teamsCore` namespace:
       - `enablePrintCapability`
       - `print`
@@ -1414,7 +1473,6 @@ Tue, 01 Mar 2022 19:50:49 GMT
     - `applyRuntimeConfig` is added
 
 - Promises introduced
-
   - The following APIs that took in a callback function as a parameter now instead return a `Promise`.
     - app APIs:
       - `app.initialize`
